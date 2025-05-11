@@ -20,12 +20,11 @@ def train_and_evaluate(X, y):
         rmse = np.sqrt(mean_squared_error(y_test, predictions))
         print(f"{name} --> MAE: {mae:.2f}, RMSE: {rmse:.2f}")
 
-        if name == "Random Forest":
-            # Gráfico de comparación
-            plt.scatter(y_test, predictions, alpha=0.4)
-            plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--')
-            plt.xlabel("Ventas reales (USD)")
-            plt.ylabel("Ventas predichas (USD)")
-            plt.title("Random Forest: Predicción vs Real")
-            plt.tight_layout()
-            plt.show()
+        # gráfico
+        plt.scatter(y_test, predictions, alpha=0.4)
+        plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--')
+        plt.xlabel("Ventas reales (USD)")
+        plt.ylabel("Ventas predichas (USD)")
+        plt.title(f"{name}: Predicción vs Real")
+        plt.tight_layout()
+        plt.show()

@@ -13,14 +13,6 @@ def transform_dates(df):
         df = df.drop(columns=["Order Date"])
     return df
 
-def drop_unused_columns(df):
-    cols_to_drop = [
-        "Row ID", "Order ID", "Customer ID", "Customer Name",
-        "Product ID", "Product Name", "Postal Code", "Ship Date"
-    ]
-    df = df.drop(columns=cols_to_drop, errors="ignore")
-    return df
-
 def encode_categoricals(df):
     le = LabelEncoder()
     for col in df.select_dtypes(include="object").columns:
