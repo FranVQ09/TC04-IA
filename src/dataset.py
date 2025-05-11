@@ -2,6 +2,8 @@ import kagglehub
 import os
 import shutil
 
+# https://www.kaggle.com/datasets/rohitsahoo/sales-forecasting
+
 # Asegúrate de que la carpeta 'data' exista
 os.makedirs('data', exist_ok=True)
 

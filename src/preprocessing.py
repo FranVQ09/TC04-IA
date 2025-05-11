@@ -7,9 +7,18 @@ def clean_data(df):
 
 def transform_dates(df):
     if "Order Date" in df.columns:
-        df["Order Date"] = pd.to_datetime(df["Order Date"])
+        df["Order Date"] = pd.to_datetime(df["Order Date"], dayfirst=True, errors="coerce")
         df["Year"] = df["Order Date"].dt.year
         df["Month"] = df["Order Date"].dt.month
+        df = df.drop(columns=["Order Date"])
+    return df
+
+def drop_unused_columns(df):
+    cols_to_drop = [
+        "Row ID", "Order ID", "Customer ID", "Customer Name",
+        "Product ID", "Product Name", "Postal Code", "Ship Date"
+    ]
+    df = df.drop(columns=cols_to_drop, errors="ignore")
     return df
 
 def encode_categoricals(df):
