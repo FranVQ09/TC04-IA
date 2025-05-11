@@ -24,6 +24,8 @@ def train_and_evaluate(X, y):
     plt.tight_layout()
     plt.show()
 
+    return model, mae, rmse
+
 def train_rf_with_gridsearch(X, y):
     print("\n Grid Search + Cross-Validation: Random Forest Regressor")
 
@@ -38,7 +40,7 @@ def train_rf_with_gridsearch(X, y):
     grid_search = GridSearchCV(
         estimator=model,
         param_grid=param_grid,
-        cv=5,  # 5-fold CV
+        cv=5,
         scoring="neg_mean_absolute_error",
         n_jobs=-1,
         verbose=1
@@ -49,7 +51,6 @@ def train_rf_with_gridsearch(X, y):
     print(f" Mejor combinación de parámetros: {grid_search.best_params_}")
     print(f" MAE promedio (CV): {-grid_search.best_score_:.2f}")
 
-    # Visualizar predicciones
     best_model = grid_search.best_estimator_
     predictions = best_model.predict(X)
 
@@ -61,7 +62,9 @@ def train_rf_with_gridsearch(X, y):
     plt.tight_layout()
     plt.show()
 
-def train_with_gridsearch(X, y):
+    return best_model, -grid_search.best_score_, np.sqrt(mean_squared_error(y, best_model.predict(X)))
+
+def train_gb_with_gridsearch(X, y):
     print("\n Grid Search + Cross-Validation: Gradient Boosting Regressor")
 
     param_grid = {
@@ -75,9 +78,9 @@ def train_with_gridsearch(X, y):
     grid_search = GridSearchCV(
         estimator=model,
         param_grid=param_grid,
-        cv=5,  # 5-fold cross-validation
+        cv=5,
         scoring="neg_mean_absolute_error",
-        n_jobs=-1,  # usa todos los núcleos disponibles
+        n_jobs=-1,
         verbose=1
     )
 
@@ -86,11 +89,9 @@ def train_with_gridsearch(X, y):
     print(f" Mejor combinación de parámetros: {grid_search.best_params_}")
     print(f" MAE promedio (CV): {-grid_search.best_score_:.2f}")
 
-    # También evaluamos con predicciones finales
     best_model = grid_search.best_estimator_
     predictions = best_model.predict(X)
 
-    # (opcional) podrías usar test split si querés separar train/test otra vez
     plt.scatter(y, predictions, alpha=0.4)
     plt.plot([y.min(), y.max()], [y.min(), y.max()], 'r--')
     plt.xlabel("Ventas reales (USD)")
@@ -98,6 +99,8 @@ def train_with_gridsearch(X, y):
     plt.title("Gradient Boosting con GridSearch: Predicción vs Real")
     plt.tight_layout()
     plt.show()
+
+    return best_model, -grid_search.best_score_, np.sqrt(mean_squared_error(y, best_model.predict(X)))
 
 def train_dt_with_gridsearch(X, y):
     print("\n Grid Search + Cross-Validation: Decision Tree Regressor")
@@ -124,7 +127,6 @@ def train_dt_with_gridsearch(X, y):
     print(f" Mejor combinación de parámetros: {grid_search.best_params_}")
     print(f" MAE promedio (CV): {-grid_search.best_score_:.2f}")
 
-    # Evaluación gráfica con el mejor modelo
     best_model = grid_search.best_estimator_
     predictions = best_model.predict(X)
 
@@ -135,4 +137,7 @@ def train_dt_with_gridsearch(X, y):
     plt.title("Decision Tree con GridSearch: Predicción vs Real")
     plt.tight_layout()
     plt.show()
+
+    return best_model, -grid_search.best_score_, np.sqrt(mean_squared_error(y, best_model.predict(X)))
+
 
