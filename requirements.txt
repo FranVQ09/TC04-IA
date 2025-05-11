@@ -1,0 +1,5 @@
+kagglehub[pandas-datasets]
+pandas
+matplotlib
+seaborn
+scikit-learn
