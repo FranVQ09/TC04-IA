@@ -110,13 +110,13 @@ def main():
 
     # Imprimir algunas predicciones
     print("\n Predicciones Regresión lineal de ventas por subcategoría y mes en 2025:")
-    print(predictions_LR_2025.head(15))
+    print(predictions_LR_2025.head(12))
     print("\n Predicciones Random Forest de ventas por subcategoría y mes en 2025:")
-    print(predictions_RF_2025.head(15))
+    print(predictions_RF_2025.head(12))
     print("\n Predicciones Gradient Boosting de ventas por subcategoría y mes en 2025:")
-    print(predictions_GB_2025.head(15))
+    print(predictions_GB_2025.head(12))
     print("\n Predicciones Decision Tree de ventas por subcategoría y mes en 2025:")
-    print(predictions_DT_2025.head(15))
+    print(predictions_DT_2025.head(12))
 
     # Visualizar comparación de modelos
     predictions_dict = {
