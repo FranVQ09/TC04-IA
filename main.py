@@ -38,6 +38,7 @@ def plot_total_sales_by_subcategory(predictions_dict, label_encoder):
     plt.title("Comparación de ventas predichas por subcategoría en 2025")
     plt.legend()
     plt.tight_layout()
+    plt.savefig('plots/sales_comparison_by_subcategory.png')
     plt.show()
 
 def plot_mae_rmse(mae_dict, rmse_dict):
@@ -63,6 +64,7 @@ def plot_mae_rmse(mae_dict, rmse_dict):
         ax.text(bar.get_x() + bar.get_width()/2, yval + 50, f"{yval:.0f}", ha='center', va='bottom')
 
     plt.tight_layout()
+    plt.savefig('plots/mae_rmse_comparison.png')
     plt.show()
 
 # Programa principal

@@ -16,12 +16,14 @@ def train_and_evaluate(X, y):
     rmse = np.sqrt(mean_squared_error(y_test, predictions))
     print(f"Linear Regression --> MAE: {mae:.2f}, RMSE: {rmse:.2f}")
 
+    plt.figure()
     plt.scatter(y_test, predictions, alpha=0.4)
     plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--')
     plt.xlabel("Ventas reales (USD)")
     plt.ylabel("Ventas predichas (USD)")
     plt.title("Linear Regression: Predicción vs Real")
     plt.tight_layout()
+    plt.savefig('plots/linear_regression_eval.png')
     plt.show()
 
     return model, mae, rmse
@@ -54,12 +56,14 @@ def train_rf_with_gridsearch(X, y):
     best_model = grid_search.best_estimator_
     predictions = best_model.predict(X)
 
-    plt.scatter(y, predictions, alpha=0.4)
+    plt.figure()
+    plt.scatter(y, best_model.predict(X), alpha=0.4)
     plt.plot([y.min(), y.max()], [y.min(), y.max()], 'r--')
     plt.xlabel("Ventas reales (USD)")
     plt.ylabel("Ventas predichas (USD)")
     plt.title("Random Forest con GridSearch: Predicción vs Real")
     plt.tight_layout()
+    plt.savefig('plots/random_forest_eval.png')
     plt.show()
 
     return best_model, -grid_search.best_score_, np.sqrt(mean_squared_error(y, best_model.predict(X)))
@@ -92,12 +96,14 @@ def train_gb_with_gridsearch(X, y):
     best_model = grid_search.best_estimator_
     predictions = best_model.predict(X)
 
+    plt.figure()
     plt.scatter(y, predictions, alpha=0.4)
     plt.plot([y.min(), y.max()], [y.min(), y.max()], 'r--')
     plt.xlabel("Ventas reales (USD)")
     plt.ylabel("Ventas predichas (USD)")
     plt.title("Gradient Boosting con GridSearch: Predicción vs Real")
     plt.tight_layout()
+    plt.savefig('plots/gradient_boosting_eval.png')
     plt.show()
 
     return best_model, -grid_search.best_score_, np.sqrt(mean_squared_error(y, best_model.predict(X)))
@@ -130,12 +136,14 @@ def train_dt_with_gridsearch(X, y):
     best_model = grid_search.best_estimator_
     predictions = best_model.predict(X)
 
-    plt.scatter(y, predictions, alpha=0.4)
+    plt.figure()
+    plt.scatter(y, best_model.predict(X), alpha=0.4)
     plt.plot([y.min(), y.max()], [y.min(), y.max()], 'r--')
     plt.xlabel("Ventas reales (USD)")
     plt.ylabel("Ventas predichas (USD)")
     plt.title("Decision Tree con GridSearch: Predicción vs Real")
     plt.tight_layout()
+    plt.savefig('plots/decision_tree_eval.png')
     plt.show()
 
     return best_model, -grid_search.best_score_, np.sqrt(mean_squared_error(y, best_model.predict(X)))
