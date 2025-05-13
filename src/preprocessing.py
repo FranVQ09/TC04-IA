@@ -24,6 +24,13 @@ def encode_categoricals(df):
         df[col] = le.fit_transform(df[col])
     return df
 
+def drop_unnecessary_columns(df):
+    cols_to_drop = [
+        "Order ID", "Ship Date", "Product ID", "Product Name", "Ship Mode"
+    ]
+    df = df.drop(columns=[col for col in cols_to_drop if col in df.columns])
+    return df 
+
 def prepare_features(df, target_column="Sales"):
     X = df.drop(columns=[target_column])
     y = df[target_column]

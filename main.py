@@ -6,7 +6,8 @@ from src.preprocessing import (
     prepare_features,
     aggregate_monthly_sales,
     encode_subcategory_column,
-    generate_2025_input
+    generate_2025_input,
+    drop_unnecessary_columns
 )
 from src.modeling import (
     train_and_evaluate,
@@ -71,7 +72,9 @@ def plot_mae_rmse(mae_dict, rmse_dict):
 def main():
     # Cargar y preparar datos
     df = load_csv()
+    explore_data(df)  # Exploración inicial de datos
     df = clean_data(df)
+    df = drop_unnecessary_columns(df)
     df = transform_dates(df)
 
     # Agregar ventas por subcategoría/mes
